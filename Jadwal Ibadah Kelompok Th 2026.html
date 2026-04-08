@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jadwal Ibadah GKPI Tarakan 2026</title>
+    <style>
+        :root {
+            --primary: #0056b3;
+            --primary-light: #e6f0fa;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-dark: #1c1e21;
+            --text-muted: #65676b;
+            --border: #dddfe2;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Area with Logo */
+        .header {
+            background-color: white;
+            color: var(--text-dark);
+            padding: 20px 15px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .logo-container {
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 70px; /* Ukuran logo diatur agar pas di HP */
+            width: auto;
+        }
+
+        .header h1 {
+            margin: 5px 0 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+        }
+
+        .header p {
+            margin: 2px 0 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Search Bar */
+        .search-container {
+            background-color: var(--primary);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 101;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px; /* Lebih membulat agar modern */
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 64px; 
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 14px 0;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        /* Card Design */
+        .container { padding: 15px; padding-bottom: 40px; }
+        .jadwal-list { display: none; flex-direction: column; gap: 15px; }
+        .jadwal-list.active { display: flex; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--primary);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .date-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .no-badge {
+            background: #eee;
+            color: #777;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .lokasi { font-size: 1.1rem; font-weight: 700; color: #333; margin-bottom: 4px; }
+        .alamat { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 15px; }
+
+        .petugas-grid {
+            background: #fdfdfd;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .petugas-item { font-size: 0.85rem; }
+        .petugas-item span {
+            display: block;
+            font-size: 0.7rem;
+            color: #999;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .petugas-utama {
+            grid-column: span 2;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 5px;
+            background-color: #e8f5e9;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .not-found { display: none; text-align: center; padding: 40px; color: #999; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-container">
+            
+        </div>
+        <h1>Jadwal Ibadah Kelompok</h1>
+        <h1>GKPI Jemaat Tarakan</h1>
+        <p>Tahun 2026</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Cari nama, tempat, atau tanggal...">
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab('kel1')">KELOMPOK 1</button>
+        <button class="tab-btn" onclick="openTab('kel2')">KELOMPOK 2</button>
+        <button class="tab-btn" onclick="openTab('kel3')">KELOMPOK 3</button>
+    </div>
+
+    <div class="container">
+        <div id="kel1" class="jadwal-list active"></div>
+        <div id="kel2" class="jadwal-list"></div>
+        <div id="kel3" class="jadwal-list"></div>
+        <div id="notFoundMsg" class="not-found">Data tidak ditemukan...</div>
+    </div>
+
+    <script>
+        // Seluruh data dari ketiga file Excel (Kel 1, 2, dan 3)
+        const dataJadwal = [
+            // KELOMPOK 1
+            { kel: 1, no: 1, tgl: "Rabu, 04 Maret 2026", tempat: "Keluarga Bpk. Yunus Kristanto", alamat: "Amal (Kampus STIE)", p1: "Dkn. Andre Christian", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Quinsi Rohani", p3: "Dkn. Dobie Steven, S.IP" },
+            { kel: 1, no: 2, tgl: "Jum'at, 25 Maret 2026", tempat: "Keluarga Ibu. Orphi Nursiman", alamat: "Markoni Dalam", p1: "Dkn. Siska Trivosa", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Yunus Kristanto", p3: "Dkn. Alexandra Johen" },
+            { kel: 1, no: 3, tgl: "Rabu, 15 April 2026", tempat: "Keluarga Bpk. Jefly", alamat: "Kampung 1", p1: "Pnt. Dolliana Nuro", firman: "Pdt. Kristina Natalia, M.Th", p2: "Pnt. Fenny", p3: "Dkn. Sisca Trivosa" },
+            { kel: 1, no: 4, tgl: "Rabu, 06 Mei 2026", tempat: "Keluarga Bpk. Kipliyasi S. Ishak", alamat: "SKIP", p1: "Pnt. Yunus Kristanto", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Yohana Sriwahyuni", p3: "Pnt. Dolliana" },
+            { kel: 1, no: 5, tgl: "Rabu, 27 Mei 2026", tempat: "Keluarga Bpk. Freddy", alamat: "SKIP", p1: "Pnt. Joksin Takalawesang", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Penina", p3: "Pnt. Dalela Padan" },
+            { kel: 1, no: 6, tgl: "Rabu, 17 Juni 2026", tempat: "Keluarga Bpk. Andre Christian", alamat: "SKIP", p1: "Dkn. Penina", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Dolliana Nuro", p3: "Pnt. Yunus Kristanto" },
+            { kel: 1, no: 7, tgl: "Rabu, 08 Juli 2026", tempat: "Keluarga Ibu. Penina", alamat: "Kampung 6", p1: "Pnt. Yohana Sriwahyuni", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Yunus Kristanto", p3: "Pnt. Quinsi Rohani" },
+            { kel: 1, no: 8, tgl: "Rabu, 29 Juli 2026", tempat: "Keluarga Ibu. Yohana Sriwahyuni", alamat: "SKIP", p1: "Dkn. Juni Alson", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Jefly", p3: "Pnt. Dolliana Nuro" },
+            { kel: 1, no: 9, tgl: "Rabu, 19 Agustus 2026", tempat: "Keluarga Bpk. Andreas Hasan", alamat: "SKIP", p1: "Pnt. Angel", firman: "Pdt. Kristina Natalia, M.Th", p2: "Pnt. Yohana Sriwahyuni", p3: "Dkn. Julia Elsie" },
+            { kel: 1, no: 10, tgl: "Rabu, 09 Sept 2026", tempat: "Keluarga Bpk. Kamson Sitanggang", alamat: "Kampung 6", p1: "Dkn. Dobie Steven", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Penina", p3: "Dkn. Jefly" },
+            { kel: 1, no: 11, tgl: "Rabu, 30 Sept 2026", tempat: "Keluarga Ibu. Salyati Baru", alamat: "Kamp. 1 Jl. P. Flores", p1: "Pnt. Yohana Sriwahyuni", firman: "Pdt. Herny Omayanti, S.Th", p2: "Pnt. Joksin Takalawesang", p3: "Dkn. Dobie Steven" },
+            { kel: 1, no: 12, tgl: "Rabu, 21 Okt 2026", tempat: "Keluarga Ibu. Wenci Abai", alamat: "SKIP", p1: "Pnt. Quinsi Rohani", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Fenny", p3: "Pnt. Yohana Sriwahyuni" },
+
+            // KELOMPOK 2
+            { kel: 2, no: 1, tgl: "Rabu, 11 Maret 2026", tempat: "Keluarga Bpk. Raimon Salmon", alamat: "Jl. P. Diponegoro Gn. Belah", p1: "Dkn. Alexandra Johen", firman: "Pnt. Mariani Kewa", p2: "Pnt. Ririk Riba Dewa Batu", p3: "Dkn. Julia Elsie" },
+            { kel: 2, no: 2, tgl: "Rabu, 01 April 2026", tempat: "Keluarga Bpk. Agus Lintung", alamat: "Karang Anyar", p1: "Pnt. Ririk Riba Dewa Batu", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Siska Trivosa", p3: "Dkn. Juni Alson" },
+            { kel: 2, no: 3, tgl: "Rabu, 22 April 2026", tempat: "Keluarga Bpk. Edi Aoi Siau", alamat: "Karang Balik", p1: "Pnt. Juari Cander", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Juni Alson", p3: "Pnt. Fenny" },
+            { kel: 2, no: 4, tgl: "Rabu, 13 Mei 2026", tempat: "Keluarga Bpk. Juni Alson", alamat: "Kr. Rejo Gg. Cendikiawan", p1: "Pnt. Yohana Sriwahyuni", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Julia Elsie", p3: "Dkn. Jefly" },
+            { kel: 2, no: 5, tgl: "Rabu, 03 Juni 2026", tempat: "Keluarga Bpk. Dukut", alamat: "Jl. P. Diponegoro Gn. Belah", p1: "Pnt. Quinsi Rohani", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Juari Cander", p3: "Dkn. Renate" },
+            { kel: 2, no: 6, tgl: "Rabu, 24 Juni 2026", tempat: "Keluarga Bpk. Lintun Candra", alamat: "Jl. Cendrawasih Blkg. Trakindo", p1: "Pnt. Yohana Sriwahyuni", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Julia Elsie", p3: "Dkn. Jefly" },
+            { kel: 2, no: 7, tgl: "Rabu, 15 Juli 2026", tempat: "Keluarga Bpk.Gaset Boesay", alamat: "Jl. Anggrek Kp. Bugis Dalam", p1: "Pnt. Helse Marlinda", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Dobie Steven", p3: "Dkn. Renate" },
+            { kel: 2, no: 8, tgl: "Rabu, 05 Agustus 2026", tempat: "Keluarga Bpk. Elisa Liau", alamat: "Karang Balik", p1: "Pnt. Dalela Padan", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Renate", p3: "Dkn. Gaset Boesay" },
+            { kel: 2, no: 9, tgl: "Rabu, 26 Agustus 2026", tempat: "Keluarga Ibu. Rosmina Darius", alamat: "Karang Anyar", p1: "Pnt. Mariani Kewa", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Siska Trivosa", p3: "Pnt. Fenny" },
+            { kel: 2, no: 10, tgl: "Rabu, 16 Sept 2026", tempat: "Keluarga Ibu. Yuliani Lintun", alamat: "Jl. Cendrawasih", p1: "Dkn. Alexandra Johen", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Quinsi Rohani", p3: "Dkn. Juni Alson" },
+            { kel: 2, no: 11, tgl: "Rabu, 07 Okt 2026", tempat: "Keluarga Bpk. Yehuda", alamat: "Selumit Gunung Daeng", p1: "Pnt. Ririk Riba D. Batu", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Juni Alson", p3: "Pnt. Angel" },
+            { kel: 2, no: 12, tgl: "Rabu, 28 Okt 2026", tempat: "Keluarga Ibu. Dorthy Thomas", alamat: "Jl. Anggrek Gg. Laskar 1", p1: "Pnt. Yunus Kristanto", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Angel", p3: "Pnt. Mariani Kewa" },
+
+            // KELOMPOK 3
+            { kel: 3, no: 1, tgl: "Rabu, 18 Maret 2026", tempat: "Keluarga Bpk. Juari Cander", alamat: "Aki Balak (RSUKT)", p1: "Pnt. Yunus Kristanto", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Helse Marlinda", p3: "Pnt. Angel" },
+            { kel: 3, no: 2, tgl: "Rabu, 08 April 2026", tempat: "Keluarga Bpk. Agus Vinus", alamat: "Cahaya Baru Jl. Lestari", p1: "Pnt. Dalela J Padan", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Joksin Takalawesang", p3: "Dkn. Jefli Galih" },
+            { kel: 3, no: 3, tgl: "Rabu, 29 April 2026", tempat: "Keluarga Bpk. Joksin Takalawesang", alamat: "Jl. Aki Balak Tirai Tarakan", p1: "Dkn. Julia Elsie", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Angel", p3: "Dkn. Andre Christian" },
+            { kel: 3, no: 4, tgl: "Rabu, 20 Mei 2026", tempat: "Keluarga Bpk. Ririk Riba", alamat: "Jl. Gajah Mada Gg. Arwana", p1: "Pnt. Angel", firman: "Pdt. Herny Omayanti, S.Th", p2: "Dkn. Siska Trivosa", p3: "Pnt. Helse Marlinda" },
+            { kel: 3, no: 5, tgl: "Rabu, 10 Juni 2026", tempat: "Keluarga Ibu. Helse Marlinda", alamat: "Jl. Bhayangkara Gg. Abo Pasir Putih", p1: "Dkn. Juni Alson", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Mariani Kewa", p3: "Dkn. Penina" },
+            { kel: 3, no: 6, tgl: "Rabu, 01 Juli 2026", tempat: "Keluarga Bpk. Albert Foret", alamat: "Jl. Cendrawasih", p1: "Pnt. Joksin T", firman: "Pdt. Elda Valerina, M.Si.", p2: "Dkn. Gaset Boesay", p3: "Dkn. Alexandra Johen" },
+            { kel: 3, no: 7, tgl: "Rabu, 22 Juli 2026", tempat: "Keluarga Ibu. Mariani Kewa", alamat: "Jl. Bhayangkara Gg. Mushola RT 11", p1: "Pnt. Fenny", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Alexandra Johen", p3: "Dkn. Gaset Boesay" },
+            { kel: 3, no: 8, tgl: "Rabu, 12 Agustus 2026", tempat: "Keluarga Bpk. Josua Martinus", alamat: "Jl. P.H. Iskandar Bukit Tengkorak", p1: "Pnt. Helse Marlinda", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Juari Cander", p3: "Dkn. Alexandra Johen" },
+            { kel: 3, no: 9, tgl: "Rabu, 02 Sept 2026", tempat: "Keluarga Bpk. Jantje Kaogow", alamat: "Perum Intraca", p1: "Dkn. Angel", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Joksin Takalawesang", p3: "Dkn. Dobie Steven" },
+            { kel: 3, no: 10, tgl: "Rabu, 23 Sept 2026", tempat: "Keluarga Bpk. Riswansyah Dedeng", alamat: "Jl. Bhayangkara Gg. Mushola RT 11", p1: "Pnt. Joksin Takalawesang", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Dalela Padan", p3: "Dkn. Andre Christian" },
+            { kel: 3, no: 11, tgl: "Rabu, 14 Okt 2026", tempat: "Keluarga Bpk. Jeckly Danur", alamat: "Jl. Bhayangkara Gg. Abo Pasir Putih", p1: "Pnt. Juari Cander", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Dkn. Alexandra Johen", p3: "Dkn. Gaset Boesay" },
+            { kel: 3, no: 12, tgl: "Rabu, 04 Nov 2026", tempat: "Keluarga Ibu. Farida Martinus", alamat: "Jl. P.H. Iskandar Bukit Tengkorak", p1: "Dkn. Siska Trivosa", firman: "Pdt. Ari Hepi Sari, S.Th", p2: "Pnt. Mariani Kewa", p3: "Pnt. Dolliana Nuro" }
+        ];
+
+        function renderJadwal() {
+            const containers = { 1: document.getElementById('kel1'), 2: document.getElementById('kel2'), 3: document.getElementById('kel3') };
+            dataJadwal.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.setAttribute('data-search', `${item.tgl} ${item.tempat} ${item.alamat} ${item.p1} ${item.p2} ${item.p3} ${item.firman}`.toLowerCase());
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="no-badge">${item.no}</span>
+                        <span class="date-badge">${item.tgl}</span>
+                    </div>
+                    <div class="lokasi">${item.tempat}</div>
+                    <div class="alamat">Alamat: ${item.alamat}</div>
+                    <div class="petugas-grid">
+                        <div class="petugas-item petugas-utama"><span>Pelayan Firman</span>${item.firman}</div>
+                        <div class="petugas-item"><span>Pembawa Acara (P1)</span>${item.p1}</div>
+                        <div class="petugas-item"><span>Liturgos (P2)</span>${item.p2}</div>
+                        <div class="petugas-item"><span>Kolektan (P3)</span>${item.p3}</div>
+                    </div>
+                `;
+                containers[item.kel].appendChild(card);
+            });
+        }
+
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.jadwal-list').forEach(list => list.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            filterData();
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterData);
+
+        function filterData() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const activeTab = document.querySelector('.jadwal-list.active');
+            const cards = activeTab.querySelectorAll('.card');
+            let found = 0;
+            cards.forEach(card => {
+                if (card.getAttribute('data-search').includes(keyword)) {
+                    card.style.display = 'block';
+                    found++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            document.getElementById('notFoundMsg').style.display = (found === 0) ? 'block' : 'none';
+        }
+
+        window.onload = renderJadwal;
+    </script>
+</body>
+</html>
